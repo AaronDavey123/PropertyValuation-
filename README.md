@@ -30,9 +30,9 @@ The main functionality of the program is inside the valuation() function. It pro
 ```python
 def valuation(reqArea, area, price):
 ```
-- reqArea: The area (in square feet) for which we need to estimate the price.
-- area: A list of property areas from the dataset.
-- price: A list of property prices corresponding to the areas.
+- **reqArea**: The area (in square feet) for which we need to estimate the price.
+- **area**: A list of property areas from the dataset.
+- **price**: A list of property prices corresponding to the areas.
 
 
 #### 2.1 Grouping by price
@@ -47,19 +47,19 @@ for a, p in zip(area, price):
         area_price_list[a] = [p]
 ```
 
-purpose: This section groups the property prices by area.
+**purpose**: This section groups the property prices by area.
 
-Explanation:
+**Explanation**:
 
 - We iterate over the area and price lists using the zip() function, which combines the two lists element by element.
 - For each pair of area (a) and price (p), we check if the area a already exists as a key in the area_price_list dictionary:
   - If it does, we append the price p to the existing list.
   - If not, we create a new list with the price p as the first element.
     
-Example:
+**Example**:
 
-- Input: area = [1000, 1500, 1500, 1000], price = [200000, 300000, 290000, 210000]
-- Resulting area_price_list: {1000: [200000, 210000], 1500: [300000, 290000]}
+- **Input: area** = [1000, 1500, 1500, 1000], price = [200000, 300000, 290000, 210000]
+- **Resulting area_price_list**: {1000: [200000, 210000], 1500: [300000, 290000]}
 
 
 #### 2.2 Filtering Outliers
@@ -86,9 +86,9 @@ for a in sorted(area_price_list.keys()):
             filtered_price.append(p)
 ```
 
-Purpose: This section identifies and filters out outlier prices based on the area. Outliers are prices that are significantly different from the mean of the group (more than 3 standard deviations away).
+**Purpose**: This section identifies and filters out outlier prices based on the area. Outliers are prices that are significantly different from the mean of the group (more than 3 standard deviations away).
 
-Explanation:
+**Explanation**:
 - Check for Single Entries: If there is only one property price for a particular area, it's automatically considered an outlier and skipped.
 - Calculate Mean and Standard Deviation: For each area, the script calculates:
 
@@ -107,6 +107,74 @@ Explanation:
         return 0
 ```
 
+### Test Case 1 
+```python
+def test_case_1(self):
+    reqArea = 1500
+    area = [1000, 1500, 1500, 1000, 1500, 2000]
+    price = [200000, 300000, 290000, 210000, 310000, 500000]
+    expected = 262000
+    result = valuation(reqArea, area, price)
+    
+    if result == expected:
+        print(f"test_case_1 passed with result: {result}")
+    else:
+        print(f"test_case_1 failed: Expected {expected}, but got {result}")
+    
+    self.assertEqual(result, expected)
+```
+**Explanation**: Basic Validation with Multiple Prices for the Same Area
+
+Input:
+- **reqArea** = 1500: We are asking for an estimate for an area of 1500 square feet.
+- **area** = [1000, 1500, 1500, 1000, 1500, 2000]: A list of areas for the available properties.
+- **price** = [200000, 300000, 290000, 210000, 310000, 500000]: Corresponding prices for the areas listed above.
+
+### Test Case 2
+```python
+def test_case_2(self):
+    reqArea = 1000
+    area = [1000, 1000, 1000, 1000, 1000]
+    price = [150000, 150000, 150000, 150000, 150000]
+    expected = 150000
+    result = valuation(reqArea, area, price)
+    
+    if result == expected:
+        print(f"test_case_2 passed with result: {result}")
+    else:
+        print(f"test_case_2 failed: Expected {expected}, but got {result}")
+    
+    self.assertEqual(result, expected)
+```
+**Explanation**: Consistent Prices for Identical Areas
+
+Input:
+- **reqArea** = 1000: We are asking for an estimate for an area of 1000 square feet.
+- **area** = [1000, 1000, 1000, 1000, 1000]: A list of areas where every property is 1000 sq ft.
+- **price** = [150000, 150000, 150000, 150000, 150000]: Corresponding prices are all the same for the properties.
+
+### Test Case 3
+```python
+def test_case_3(self):
+    reqArea = 2000
+    area = [1500, 2000, 2000, 2000, 1500, 2000, 1500, 1500]
+    price = [250000, 400000, 500000, 600000, 240000, 450000, 235000, 250000]
+    expected = 365625
+    result = valuation(reqArea, area, price)
+    
+    if result == expected:
+        print(f"test_case_3 passed with result: {result}")
+    else:
+        print(f"test_case_3 failed: Expected {expected}, but got {result}")
+    
+    self.assertEqual(result, expected)
+```
+**Explanation**: Multiple Prices with Outliers for the Same Area
+
+Input:
+- **reqArea** = 2000: We are asking for an estimate for an area of 2000 square feet.
+- **area** = [1500, 2000, 2000, 2000, 1500, 2000, 1500, 1500]: A list of areas with some properties at 2000 sq ft and others at 1500 sq ft.
+- **price** = [250000, 400000, 500000, 600000, 240000, 450000, 235000, 250000]: Prices corresponding to the areas listed above.
 
 ## Explanation of Concepts
 
