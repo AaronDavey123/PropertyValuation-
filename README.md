@@ -98,12 +98,21 @@ Explanation:
 - Filter Prices: The script then filters out any price that deviates more than 3 standard deviations from the mean price, as these are considered outliers. Only valid prices are added to the filtered_area and filtered_price lists.
 
 
+#### 2.3 Returning Final Valuation
+```python
+# Return the average price of the filtered prices as the final valuation
+    if filtered_price:
+        return statistics.mean(filtered_price)
+    else:
+        return 0
+```
+
 
 ## Explanation of Concepts
 
 - Mean (Average): The arithmetic average of a list of numbers. In the script, the mean price for each area is calculated using the statistics.mean() function.
-- 
-Standard Deviation: A measure of how spread out the values in a data set are. A higher standard deviation indicates that the prices are more spread out, while a lower standard deviation suggests that prices are more consistent.
+  
+- Standard Deviation: A measure of how spread out the values in a data set are. A higher standard deviation indicates that the prices are more spread out, while a lower standard deviation suggests that prices are more consistent.
 
 - Outlier Removal: By filtering out prices that are more than 3 standard deviations from the mean, the script ensures that extreme values don't skew the estimated price for a property. This method follows the statistical rule known as the "3-sigma rule," which is widely used for identifying outliers in data.
 
