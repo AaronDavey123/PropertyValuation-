@@ -1,16 +1,16 @@
-# Property Valuation Based on Area and Price
+## Property Valuation Based on Area and Price
 
 This repository contains a Python script for estimating the valuation of a property based on its area and historical price data. The script processes a list of areas and their corresponding prices, identifies and filters outliers, and calculates the most likely price based on the given area. The program uses statistical techniques, such as mean and standard deviation, to ensure that extreme outliers do not skew the results.
 
 
 
-## Overview
+## 📄 Description
 
 The script is designed to process input data about property areas and prices and return an estimated price for a specified area. The logic works by detecting outliers in the data using statistical measures and then calculating an estimated price based on the remaining valid data.
 
 
 
-## Code Explanation
+## 📊 Code Explanation
 ### 1. Importing Iibraries
 ```python
 import math
